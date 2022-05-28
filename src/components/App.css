@@ -1,0 +1,132 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  width: 7em;
+  padding: 0.5em;
+  font-size: var(--fnt-size-sm);
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.5s;
+  background-color: #6eeb83;
+}
+
+button:hover {
+  background-color: #ff5714 !important;
+}
+
+.wrapper {
+  margin: 1em;
+  padding: 1em;
+  font-family: 'Lato', sans-serif;
+}
+
+:root {
+  /* possible color schemes: 
+     purple ish: #a594f9, #F5EFFF, #CDC1FF, #A594F9
+     red ish: #f5bb00, #ec9f05, #d76a03, bf3100
+     bright colors: #1be7ff, #6eeb83, #e4ff1a, #FFB800, #ff5714*/
+
+  --fnt-size-lrg: 1.5rem;
+  --fnt-size-md: 1.3rem;
+  --fnt-size-sm: 1.1rem;
+}
+
+/* Header */
+
+header {
+  display: flex;
+  border: 2px solid black;
+  border-bottom: none;
+}
+
+header div {
+  text-align: center;
+  border-right: 2px solid black;
+  flex: 1 1 0;
+  padding: 1em;
+  font-size: var(--fnt-size-lrg);
+}
+
+header div:nth-child(1) {
+  background-color: #1be7ff;
+}
+header div:nth-child(2) {
+  background-color: #6eeb83;
+}
+header div:nth-child(3) {
+  background-color: #e4ff1a;
+}
+header div:nth-child(4) {
+  background-color: #ff5714;
+  border-right: none;
+}
+
+/* Board */
+
+.board {
+  border: 2px solid black;
+  height: 25em;
+  display: flex;
+  margin-bottom: 0.5em;
+}
+
+.board div {
+  flex: 1 1 0;
+  border-right: 2px solid black;
+}
+
+.board div:last-child {
+  border-right: none;
+}
+
+/* Card */
+
+.card {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #00000050;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+
+.box {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  background: #fff;
+  border-radius: 4px;
+  padding: 1em;
+  border: 1px solid #999;
+}
+
+.card h2 {
+  /* margin-right: auto; */
+}
+
+.card input {
+  /* margin: auto 0; */
+  padding: 0.5em;
+  border: 2px solid black;
+}
+
+.card div {
+  display: flex;
+}
+
+.card button:first-child {
+  margin-right: 1em;
+  background-color: #6eeb83;
+}
+
+.card button:last-child {
+  background-color: #e4ff1a;
+}
