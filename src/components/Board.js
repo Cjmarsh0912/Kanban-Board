@@ -167,7 +167,9 @@ export default function Board() {
           })}
         </DragDropContext>
       </div>
-      <button onClick={toggleCard}>New Task</button>
+      <button className='newTaskBtn' onClick={toggleCard}>
+        New Task
+      </button>
       {showCard && (
         <AddTask tasks={tasks} addTask={addTask} handleClose={toggleCard} />
       )}

@@ -7,7 +7,7 @@ export default function Header() {
         <h2>Tasks</h2>
       </div>
       <div>
-        <h2>In Progress</h2>
+        <h2>Doing</h2>
       </div>
       <div>
         <h2>Testing</h2>

@@ -6,8 +6,9 @@
 }
 
 body {
-  width: 100%;
   height: 100%;
+  margin: auto;
+  max-width: 1280px;
 }
 
 button {
@@ -17,7 +18,6 @@ button {
   font-size: var(--fnt-size-sm);
   padding: 0.5em;
   transition: background-color 0.5s !important;
-  width: clamp(2em, 10vw, 7em);
 }
 
 button:hover {
@@ -31,9 +31,15 @@ button:hover {
 }
 
 :root {
-  --fnt-size-lrg: clamp(0.4rem, 5vw - 1rem, 1.6rem);
-  --fnt-size-md: clamp(0.1rem, 1.5vw, 1.3rem);
-  --fnt-size-sm: clamp(0.5rem, 1.5vw, 1.1rem);
+  --fnt-size-lrg: clamp(0.7rem, 3.5vw - 1rem, 1.6rem);
+  --fnt-size-sm: clamp(0.7rem, 3.5vw, 1.1rem);
+}
+
+@media screen and (min-width: 1280px) {
+  :root {
+    --fnt-size-lrg: clamp(1.6rem, 1vw, 3rem);
+    --fnt-size-sm: clamp(1.1rem, 1vw, 2rem);
+  }
 }
 
 /* 2. Header */
@@ -49,7 +55,7 @@ header {
 header div {
   border-right: 2px solid black;
   font-size: var(--fnt-size-lrg);
-  padding: 1em;
+  padding: 1em 0;
   text-align: center;
   width: clamp(10em, 100vw - 2em, 100%);
 }
@@ -75,8 +81,8 @@ header div:nth-child(4) {
   display: flex;
   margin: auto;
   margin-bottom: 0.5em;
-  min-height: 25em;
   max-width: clamp(10em, 100vw - 2em, 75em);
+  min-height: 25em;
 }
 
 .board > div {
@@ -106,6 +112,10 @@ header div:nth-child(4) {
   border-right: none;
 }
 
+.newTaskBtn {
+  width: 7em;
+}
+
 /* 4. Task */
 .task {
   background-color: #1be7ff;
@@ -118,6 +128,7 @@ header div:nth-child(4) {
 .task header {
   border: none;
   display: block;
+  font-size: var(--fnt-size-sm);
   margin: 0 auto 0 0;
   max-width: 25ch;
 }
@@ -135,8 +146,9 @@ header div:nth-child(4) {
 
 .task p {
   flex-basis: 100%;
-  margin-top: 1em;
+  font-size: var(--fnt-size-sm);
   margin-right: auto;
+  margin-top: 1em;
   max-width: 30ch;
 }
 
@@ -166,35 +178,38 @@ header div:nth-child(4) {
   flex-wrap: wrap;
   gap: 1em;
   padding: 1em;
-  width: 40em;
+  width: 30em;
 }
 
 .box h2 {
   flex: 1 1 100%;
+  font-size: clamp(1.3rem, 3.5vw, 1.6rem);
 }
 
 .taskForm {
+  align-items: center;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   flex: 1 1 100%;
   gap: 0.5em;
-  justify-content: center;
 }
 
-.taskForm label {
-  flex: 0 1 40%;
+.taskForm > * {
+  width: clamp(10rem, 75vw, 20rem);
+}
+
+.taskForm > label {
+  font-size: var(--fnt-size-sm);
 }
 
 .taskForm input {
   border: 2px solid black;
-  flex: 0 1 40%;
   margin-bottom: 1em;
   padding: 0.5em;
 }
 
 .submit {
   background-color: #6eeb83 !important;
-  margin-right: 1em;
 }
 
 .taskForm button {

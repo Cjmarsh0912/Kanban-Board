@@ -21,6 +21,7 @@ export default function AddTask({ addTask, handleClose, tasks }) {
     addTask([...tasks, newTask]);
     setTask('');
     setHeader('');
+    focus.current.focus();
   };
 
   useEffect(() => {
@@ -39,7 +40,6 @@ export default function AddTask({ addTask, handleClose, tasks }) {
             }}
           >
             <label htmlFor='header'>*Task Name:</label>
-            <label htmlFor='task'>Task Details:</label>
             <input
               ref={focus}
               type='text'
@@ -50,6 +50,7 @@ export default function AddTask({ addTask, handleClose, tasks }) {
               value={header}
               onChange={(e) => setHeader(e.target.value)}
             />
+            <label htmlFor='task'>Task Details:</label>
             <input
               type='text'
               name='task'
