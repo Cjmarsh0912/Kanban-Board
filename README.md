@@ -1,3 +1,10 @@
+# Kanban Board
+
+Tech Stack: React, CSS
+
+Stores tasks to be dragged around a board
+
+#
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
