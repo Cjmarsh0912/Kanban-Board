@@ -3,7 +3,6 @@
 Tech Stack: React, CSS
 
 Stores tasks to be dragged around a board
-
 #
 # Getting Started with Create React App
 
