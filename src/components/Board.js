@@ -135,6 +135,7 @@ export default function Board() {
                       }}
                     >
                       {column.items.map((item, index) => {
+                        console.log(item);
                         return (
                           <Draggable
                             key={item.id}
