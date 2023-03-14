@@ -1,5 +1,5 @@
 import React from 'react';
-import trash from '../images/delete.svg';
+import trash from '../assets/images/delete.svg';
 
 export default function Task(props) {
   const { id, task, header } = props.tasks;

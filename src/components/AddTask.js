@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 
 export default function AddTask({ addTask, handleClose, tasks }) {
@@ -33,12 +33,7 @@ export default function AddTask({ addTask, handleClose, tasks }) {
       <div className='addTask'>
         <div className='box'>
           <h2>Add new task:</h2>
-          <form
-            className='taskForm'
-            onSubmit={(e) => {
-              handleSubmit(e);
-            }}
-          >
+          <div className='taskForm'>
             <label htmlFor='header'>*Task Name:</label>
             <input
               ref={focus}
@@ -60,11 +55,11 @@ export default function AddTask({ addTask, handleClose, tasks }) {
               value={task}
               onChange={(e) => setTask(e.target.value)}
             />
-            <button className='submit' type='submit'>
+            <button className='submit' onClick={(e) => handleSubmit(e)}>
               Add Task
             </button>
             <button onClick={handleClose}>Close</button>
-          </form>
+          </div>
         </div>
       </div>
     </>

@@ -15,6 +15,7 @@ button {
   background-color: #6eeb83;
   border: none;
   cursor: pointer;
+  width: 7em;
   font-size: var(--fnt-size-sm);
   padding: 0.5em;
   transition: background-color 0.5s !important;
@@ -22,6 +23,16 @@ button {
 
 button:hover {
   background-color: #ff5714 !important;
+}
+
+.delAllBtn {
+  background-color: #ff5714;
+  margin-left: 1rem;
+  transition: background-color 0.5s !important;
+}
+
+.delAllBtn:hover {
+  background-color: #6eeb83 !important;
 }
 
 .wrapper {
@@ -110,10 +121,6 @@ header div:nth-child(4) {
 
 .board div:last-child {
   border-right: none;
-}
-
-.newTaskBtn {
-  width: 7em;
 }
 
 /* 4. Task */
