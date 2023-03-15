@@ -1,8 +1,13 @@
-import React from 'react';
 import trash from '../assets/images/delete.svg';
+import { TaskInterface } from '../interfaces/interface';
 
-export default function Task(props) {
-  const { id, task, header } = props.tasks;
+interface Props {
+  task: TaskInterface;
+  clickHandler: (id: number) => void;
+}
+
+export default function Task(props: Props) {
+  const { id, task, header } = props.task;
   return (
     <>
       <div className='task'>

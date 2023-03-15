@@ -4,12 +4,13 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import Task from './Task';
 import AddTask from './AddTask';
 import Header from './Header';
+import { TaskInterface, Columns } from '../interfaces/interface';
 
 function App() {
-  const [tasks, setTask] = useState(() => {
+  const [tasks, setTask] = useState((): TaskInterface[] => {
     return [];
   });
-  const [columns, setColumns] = useState(() => {
+  const [columns, setColumns] = useState((): Columns => {
     return {
       0: {
         name: 'tasks',
@@ -32,7 +33,7 @@ function App() {
   const [showCard, setShowCard] = useState(false);
 
   const addTask = useCallback(
-    (log) => {
+    (log: TaskInterface[]) => {
       const newTask = log[log.length - 1];
       setTask(log);
       setColumns({
@@ -50,14 +51,14 @@ function App() {
   const toggleCard = useCallback(() => setShowCard(!showCard), [showCard]);
 
   // Handles when the user stops dragging a task
-  const onDragEnd = (result, columns, setColumns) => {
+  const onDragEnd = (result: any, columns: Columns, setColumns: any) => {
     if (!result.destination) return;
 
     const { source, destination } = result;
 
     if (source.droppableId !== destination.droppableId) {
-      const sourceColumn = columns[source.droppableId];
-      const destColumn = columns[destination.droppableId];
+      const sourceColumn = columns[source.droppableId as keyof Columns];
+      const destColumn = columns[destination.droppableId as keyof Columns];
       const sourceItems = [...sourceColumn.items];
       const destItems = [...destColumn.items];
       const [removed] = sourceItems.splice(source.index, 1);
@@ -74,7 +75,7 @@ function App() {
         },
       });
     } else {
-      const column = columns[source.droppableId];
+      const column = columns[source.droppableId as keyof Columns];
       const copiedItems = [...column.items];
       const [removed] = copiedItems.splice(source.index, 1);
       copiedItems.splice(destination.index, 0, removed);
@@ -89,14 +90,33 @@ function App() {
   };
 
   const deleteContact = useCallback(
-    (id) => {
-      let newColumns = columns;
-      let newTasks = [...tasks].filter((i) => {
+    (id: number): void => {
+      let newColumns: Columns = {
+        0: {
+          name: 'tasks',
+          items: [],
+        },
+        1: {
+          name: 'inProgress',
+          items: [],
+        },
+        2: {
+          name: 'testing',
+          items: [],
+        },
+        3: {
+          name: 'done',
+          items: [],
+        },
+      };
+      let newTasks = [...tasks].filter((i: any) => {
         return i.id !== id;
       });
 
       for (let i = 0; i <= 3; i++) {
-        newColumns[i].items = columns[i].items.filter((t) => {
+        newColumns[i as keyof Columns].items = columns[
+          i as keyof Columns
+        ].items.filter((t) => {
           return t.id !== id;
         });
       }
@@ -108,7 +128,7 @@ function App() {
   );
 
   const deleteAllTasks = () => {
-    if (tasks) {
+    if (tasks.length > 0) {
       console.log('ran');
       setColumns(() => {
         return {
@@ -137,8 +157,12 @@ function App() {
   };
 
   useEffect(() => {
-    const retrieveColumns = JSON.parse(localStorage.getItem('columns'));
-    const retrieveTasks = JSON.parse(localStorage.getItem('tasks'));
+    const retrieveColumns: Columns = JSON.parse(
+      localStorage.getItem('columns')!
+    );
+    const retrieveTasks: TaskInterface[] = JSON.parse(
+      localStorage.getItem('tasks')!
+    );
     if (retrieveColumns) {
       setTask(retrieveTasks);
       setColumns(retrieveColumns);
@@ -156,12 +180,12 @@ function App() {
       <main>
         <div className='board'>
           <DragDropContext
-            onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+            onDragEnd={(result: any) => onDragEnd(result, columns, setColumns)}
           >
             {Object.entries(columns).map(([id, column]) => {
               return (
                 <Droppable key={id} droppableId={id}>
-                  {(provided, snapshot) => {
+                  {(provided: any, snapshot: any) => {
                     return (
                       <div
                         {...provided.droppableProps}
@@ -173,30 +197,32 @@ function App() {
                             : 'white',
                         }}
                       >
-                        {column.items.map((item, index) => {
-                          return (
-                            <Draggable
-                              key={item.id}
-                              draggableId={item.id}
-                              index={index}
-                            >
-                              {(provided, snapshot) => {
-                                return (
-                                  <div
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                  >
-                                    <Task
-                                      clickHandler={deleteContact}
-                                      tasks={item}
-                                    />
-                                  </div>
-                                );
-                              }}
-                            </Draggable>
-                          );
-                        })}
+                        {column.items.map(
+                          (item: TaskInterface, index: number) => {
+                            return (
+                              <Draggable
+                                key={item.id}
+                                draggableId={item.id}
+                                index={index}
+                              >
+                                {(provided: any, snapshot: any) => {
+                                  return (
+                                    <div
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                    >
+                                      <Task
+                                        clickHandler={deleteContact}
+                                        task={item}
+                                      />
+                                    </div>
+                                  );
+                                }}
+                              </Draggable>
+                            );
+                          }
+                        )}
                         {provided.placeholder}
                       </div>
                     );

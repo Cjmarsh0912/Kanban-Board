@@ -1,16 +1,24 @@
 import { useState, useRef, useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
+import { TaskInterface } from '../interfaces/interface';
 
-export default function AddTask({ addTask, handleClose, tasks }) {
+interface Props {
+  addTask: (log: TaskInterface[]) => void;
+  handleClose: () => void;
+  tasks: TaskInterface[];
+}
+
+export default function AddTask(props: Props) {
+  const tasks = props.tasks;
   const [task, setTask] = useState('');
   const [header, setHeader] = useState('');
-  const focus = useRef(null);
+  const focusRef: any = useRef(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     if (header.length === 0) {
       alert('Task must have a name');
-      focus.current.focus();
+      focusRef.current.focus();
       return;
     }
     const newTask = {
@@ -18,14 +26,14 @@ export default function AddTask({ addTask, handleClose, tasks }) {
       task: task,
       header: header,
     };
-    addTask([...tasks, newTask]);
+    props.addTask([...tasks, newTask]);
     setTask('');
     setHeader('');
-    focus.current.focus();
+    focusRef.current.focus();
   };
 
   useEffect(() => {
-    focus.current.focus();
+    focusRef.current.focus();
   }, []);
 
   return (
@@ -36,7 +44,7 @@ export default function AddTask({ addTask, handleClose, tasks }) {
           <div className='taskForm'>
             <label htmlFor='header'>*Task Name:</label>
             <input
-              ref={focus}
+              ref={focusRef}
               type='text'
               name='header'
               id='header'
@@ -58,7 +66,7 @@ export default function AddTask({ addTask, handleClose, tasks }) {
             <button className='submit' onClick={(e) => handleSubmit(e)}>
               Add Task
             </button>
-            <button onClick={handleClose}>Close</button>
+            <button onClick={props.handleClose}>Close</button>
           </div>
         </div>
       </div>
