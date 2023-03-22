@@ -147,6 +147,15 @@ header div:nth-child(4) {
   transition: box-shadow 0.5s;
 }
 
+.test {
+  cursor: pointer;
+}
+
+.test:hover {
+  transition: box-shadow 0.5s;
+  box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.5);
+}
+
 .task img:hover {
   box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.5);
 }

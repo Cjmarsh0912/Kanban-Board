@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import Task from './Task';
 import AddTask from './AddTask';
+import EditTask from './EditTask';
 import Header from './Header';
 import { TaskInterface, Columns } from '../interfaces/interface';
 
@@ -30,7 +31,52 @@ function App() {
       },
     };
   });
+  const [editTask, setEditTask] = useState<TaskInterface>({
+    id: -1,
+    header: '',
+    task: '',
+  });
   const [showCard, setShowCard] = useState(false);
+
+  const updateTask = useCallback(
+    (task: TaskInterface) => {
+      let newColumns: Columns = {
+        0: {
+          name: 'tasks',
+          items: [],
+        },
+        1: {
+          name: 'inProgress',
+          items: [],
+        },
+        2: {
+          name: 'testing',
+          items: [],
+        },
+        3: {
+          name: 'done',
+          items: [],
+        },
+      };
+      let newTasks = [...tasks].map((item) => {
+        if (item.id == task.id) return task;
+        else return item;
+      });
+
+      for (let i = 0; i <= 3; i++) {
+        newColumns[i as keyof Columns].items = columns[
+          i as keyof Columns
+        ].items.map((item) => {
+          if (item.id == task.id) return task;
+          else return item;
+        });
+      }
+
+      setTask(newTasks);
+      setColumns(newColumns);
+    },
+    [tasks, columns]
+  );
 
   const addTask = useCallback(
     (log: TaskInterface[]) => {
@@ -47,8 +93,12 @@ function App() {
     [tasks, columns]
   );
 
-  // Toggles the add task menu
-  const toggleCard = useCallback(() => setShowCard(!showCard), [showCard]);
+  const toggleAddTask = useCallback(() => setShowCard(!showCard), [showCard]);
+
+  const toggleEditTask = useCallback(
+    (task: TaskInterface) => setEditTask(task),
+    [editTask]
+  );
 
   // Handles when the user stops dragging a task
   const onDragEnd = (result: any, columns: Columns, setColumns: any) => {
@@ -129,7 +179,6 @@ function App() {
 
   const deleteAllTasks = () => {
     if (tasks.length > 0) {
-      console.log('ran');
       setColumns(() => {
         return {
           0: {
@@ -213,8 +262,9 @@ function App() {
                                       {...provided.dragHandleProps}
                                     >
                                       <Task
-                                        clickHandler={deleteContact}
+                                        deleteHandler={deleteContact}
                                         task={item}
+                                        editTask={toggleEditTask}
                                       />
                                     </div>
                                   );
@@ -232,14 +282,25 @@ function App() {
             })}
           </DragDropContext>
         </div>
-        <button className='newTaskBtn' onClick={toggleCard}>
+        <button className='newTaskBtn' onClick={toggleAddTask}>
           New Task
         </button>
         <button onClick={deleteAllTasks} className='delAllBtn'>
           Delete All
         </button>
         {showCard && (
-          <AddTask tasks={tasks} addTask={addTask} handleClose={toggleCard} />
+          <AddTask
+            tasks={tasks}
+            addTask={addTask}
+            handleClose={toggleAddTask}
+          />
+        )}
+        {editTask.id !== -1 && (
+          <EditTask
+            task={editTask}
+            handleClose={toggleEditTask}
+            editTask={updateTask}
+          />
         )}
       </main>
     </div>

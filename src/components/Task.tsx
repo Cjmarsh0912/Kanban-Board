@@ -1,9 +1,10 @@
-import trash from '../assets/images/delete.svg';
 import { TaskInterface } from '../interfaces/interface';
+import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 
 interface Props {
   task: TaskInterface;
-  clickHandler: (id: number) => void;
+  deleteHandler: (id: number) => void;
+  editTask: (task: TaskInterface) => void;
 }
 
 export default function Task(props: Props) {
@@ -14,14 +15,28 @@ export default function Task(props: Props) {
         <header>
           <h3>{header}</h3>
         </header>
-        <img
+        <AiOutlineEdit
+          className='test'
+          style={{ height: '20px', width: '20px', marginRight: '1rem' }}
+          onClick={() => {
+            props.editTask(props.task);
+          }}
+        />
+        <AiOutlineDelete
+          className='test'
+          style={{ height: '20px', width: '20px' }}
+          onClick={() => {
+            props.deleteHandler(id);
+          }}
+        />
+        {/* <img
           onClick={() => {
             props.clickHandler(id);
           }}
           src={trash}
           style={{ height: '20px', width: '20px' }}
           alt='delete icon'
-        />
+        /> */}
         {task !== '' && <p>{task}</p>}
       </div>
     </>
