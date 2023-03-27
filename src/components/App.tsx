@@ -32,7 +32,7 @@ function App() {
     };
   });
   const [editTask, setEditTask] = useState<TaskInterface>({
-    id: -1,
+    id: '-1',
     header: '',
     task: '',
   });
@@ -140,7 +140,7 @@ function App() {
   };
 
   const deleteContact = useCallback(
-    (id: number): void => {
+    (id: string): void => {
       let newColumns: Columns = {
         0: {
           name: 'Tasks',
@@ -225,7 +225,6 @@ function App() {
 
   return (
     <div className='wrapper'>
-      {/* <Header /> */}
       <main>
         <div className='board'>
           <DragDropContext
@@ -304,7 +303,7 @@ function App() {
             handleClose={toggleAddTask}
           />
         )}
-        {editTask.id !== -1 && (
+        {editTask.id !== '-1' && (
           <EditTask
             task={editTask}
             handleClose={toggleEditTask}

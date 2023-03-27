@@ -18,7 +18,7 @@ export interface Columns {
 }
 
 export interface TaskInterface {
-  id: number;
+  id: string;
   task: string;
   header: string;
 }

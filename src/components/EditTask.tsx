@@ -1,11 +1,11 @@
 import { useState, useRef } from 'react';
 import { TaskInterface } from '../interfaces/interface';
 
-interface Props {
+type Props = {
   task: TaskInterface;
   editTask: (task: TaskInterface) => void;
   handleClose: (task: TaskInterface) => void;
-}
+};
 
 export default function EditTask(props: Props) {
   const { id, header, task } = props.task;
@@ -13,7 +13,7 @@ export default function EditTask(props: Props) {
   const [newHeader, setNewHeader] = useState(header);
   const focusRef: any = useRef(null);
   const reset: TaskInterface = {
-    id: -1,
+    id: '-1',
     task: '',
     header: '',
   };
@@ -33,6 +33,7 @@ export default function EditTask(props: Props) {
 
     // checks whether there is a change to the task or task header
     if (task !== newTasks.task || header !== newTasks.header) {
+      console.log('ran');
       props.editTask(newTasks);
 
       props.handleClose(reset);
@@ -40,7 +41,7 @@ export default function EditTask(props: Props) {
   };
 
   return (
-    <div className='addTask'>
+    <div className='editTask'>
       <div className='box'>
         <h2>Edit Task</h2>
         <div className='taskForm'>

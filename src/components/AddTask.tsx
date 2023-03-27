@@ -2,11 +2,11 @@ import { useState, useRef, useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 import { TaskInterface } from '../interfaces/interface';
 
-interface Props {
+type Props = {
   addTask: (log: TaskInterface[]) => void;
   handleClose: () => void;
   tasks: TaskInterface[];
-}
+};
 
 export default function AddTask(props: Props) {
   const tasks = props.tasks;
