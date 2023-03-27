@@ -14,19 +14,19 @@ function App() {
   const [columns, setColumns] = useState((): Columns => {
     return {
       0: {
-        name: 'tasks',
+        name: 'Tasks',
         items: [],
       },
       1: {
-        name: 'inProgress',
+        name: 'Doing',
         items: [],
       },
       2: {
-        name: 'testing',
+        name: 'Testing',
         items: [],
       },
       3: {
-        name: 'done',
+        name: 'Done',
         items: [],
       },
     };
@@ -42,19 +42,19 @@ function App() {
     (task: TaskInterface) => {
       let newColumns: Columns = {
         0: {
-          name: 'tasks',
+          name: 'Tasks',
           items: [],
         },
         1: {
-          name: 'inProgress',
+          name: 'Doing',
           items: [],
         },
         2: {
-          name: 'testing',
+          name: 'Testing',
           items: [],
         },
         3: {
-          name: 'done',
+          name: 'Done',
           items: [],
         },
       };
@@ -85,7 +85,7 @@ function App() {
       setColumns({
         ...columns,
         0: {
-          name: 'tasks',
+          name: 'Tasks',
           items: [...columns[0].items, newTask],
         },
       });
@@ -143,19 +143,19 @@ function App() {
     (id: number): void => {
       let newColumns: Columns = {
         0: {
-          name: 'tasks',
+          name: 'Tasks',
           items: [],
         },
         1: {
-          name: 'inProgress',
+          name: 'Doing',
           items: [],
         },
         2: {
-          name: 'testing',
+          name: 'Testing',
           items: [],
         },
         3: {
-          name: 'done',
+          name: 'Done',
           items: [],
         },
       };
@@ -182,19 +182,19 @@ function App() {
       setColumns(() => {
         return {
           0: {
-            name: 'tasks',
+            name: 'Tasks',
             items: [],
           },
           1: {
-            name: 'inProgress',
+            name: 'Doing',
             items: [],
           },
           2: {
-            name: 'testing',
+            name: 'Testing',
             items: [],
           },
           3: {
-            name: 'done',
+            name: 'Done',
             items: [],
           },
         };
@@ -225,7 +225,7 @@ function App() {
 
   return (
     <div className='wrapper'>
-      <Header />
+      {/* <Header /> */}
       <main>
         <div className='board'>
           <DragDropContext
@@ -236,44 +236,50 @@ function App() {
                 <Droppable key={id} droppableId={id}>
                   {(provided: any, snapshot: any) => {
                     return (
-                      <div
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                        className={column.name}
-                        style={{
-                          background: snapshot.isDraggingOver
-                            ? 'lightgrey'
-                            : 'white',
-                        }}
-                      >
-                        {column.items.map(
-                          (item: TaskInterface, index: number) => {
-                            return (
-                              <Draggable
-                                key={item.id}
-                                draggableId={item.id}
-                                index={index}
-                              >
-                                {(provided: any, snapshot: any) => {
-                                  return (
-                                    <div
-                                      ref={provided.innerRef}
-                                      {...provided.draggableProps}
-                                      {...provided.dragHandleProps}
-                                    >
-                                      <Task
-                                        deleteHandler={deleteContact}
-                                        task={item}
-                                        editTask={toggleEditTask}
-                                      />
-                                    </div>
-                                  );
-                                }}
-                              </Draggable>
-                            );
-                          }
-                        )}
-                        {provided.placeholder}
+                      <div className='taskContainer'>
+                        <Header
+                          columnName={column.name}
+                          columnClassName={column.name}
+                        />
+                        <div
+                          {...provided.droppableProps}
+                          ref={provided.innerRef}
+                          className={`column${column.name}`}
+                          style={{
+                            background: snapshot.isDraggingOver
+                              ? 'lightgrey'
+                              : 'white',
+                          }}
+                        >
+                          {column.items.map(
+                            (item: TaskInterface, index: number) => {
+                              return (
+                                <Draggable
+                                  key={item.id}
+                                  draggableId={item.id}
+                                  index={index}
+                                >
+                                  {(provided: any, snapshot: any) => {
+                                    return (
+                                      <div
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                      >
+                                        <Task
+                                          deleteHandler={deleteContact}
+                                          task={item}
+                                          editTask={toggleEditTask}
+                                        />
+                                      </div>
+                                    );
+                                  }}
+                                </Draggable>
+                              );
+                            }
+                          )}
+                          {provided.placeholder}
+                        </div>
                       </div>
                     );
                   }}
@@ -282,12 +288,15 @@ function App() {
             })}
           </DragDropContext>
         </div>
-        <button className='newTaskBtn' onClick={toggleAddTask}>
-          New Task
-        </button>
-        <button onClick={deleteAllTasks} className='delAllBtn'>
-          Delete All
-        </button>
+
+        <div className='btnContainer'>
+          <button className='newTaskBtn' onClick={toggleAddTask}>
+            New Task
+          </button>
+          <button onClick={deleteAllTasks} className='delAllBtn'>
+            Delete All
+          </button>
+        </div>
         {showCard && (
           <AddTask
             tasks={tasks}

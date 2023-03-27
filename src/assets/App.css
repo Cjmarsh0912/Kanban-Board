@@ -6,16 +6,20 @@
 }
 
 body {
-  height: 100%;
   margin: auto;
   max-width: 1280px;
+}
+
+.btnContainer {
+  display: flex;
+  gap: 1rem;
 }
 
 button {
   background-color: #6eeb83;
   border: none;
   cursor: pointer;
-  width: 7em;
+  width: clamp(4rem, 2.82rem + 5.393vw, 7rem);
   font-size: var(--fnt-size-sm);
   padding: 0.5em;
   transition: background-color 0.5s !important;
@@ -27,7 +31,6 @@ button:hover {
 
 .delAllBtn {
   background-color: #ff5714;
-  margin-left: 1rem;
   transition: background-color 0.5s !important;
 }
 
@@ -53,34 +56,49 @@ button:hover {
   }
 }
 
+@media screen and (max-width: 1000px) {
+  .board {
+    flex-wrap: wrap;
+    border-top: none !important;
+    width: 50%;
+  }
+
+  header {
+    border-top: 2px solid black;
+  }
+
+  .taskContainer {
+    border-right: none !important;
+    min-height: 20rem;
+  }
+
+  .btnContainer {
+    justify-content: center;
+  }
+}
+
 /* 2. Header */
 
 header {
-  display: flex;
-  border: 2px solid black;
-  border-bottom: none;
-  max-width: clamp(10em, 100vw - 2em, 75em);
-  margin: auto;
+  border-bottom: 2px solid black;
 }
 
 header div {
-  border-right: 2px solid black;
   font-size: var(--fnt-size-lrg);
   padding: 1em 0;
   text-align: center;
-  width: clamp(10em, 100vw - 2em, 100%);
 }
 
-header div:nth-child(1) {
+.Tasks {
   background-color: #1be7ff;
 }
-header div:nth-child(2) {
+.Doing {
   background-color: #6eeb83;
 }
-header div:nth-child(3) {
+.Testing {
   background-color: #e4ff1a;
 }
-header div:nth-child(4) {
+.Done {
   background-color: #ff5714;
   border-right: none;
 }
@@ -92,30 +110,38 @@ header div:nth-child(4) {
   display: flex;
   margin: auto;
   margin-bottom: 0.5em;
-  max-width: clamp(10em, 100vw - 2em, 75em);
-  min-height: 25em;
+  min-height: 30em;
 }
 
-.board > div {
+.board > * {
+  flex: 1 1 100%;
+}
+
+.taskContainer {
   border-right: 2px solid black;
   display: flex;
   flex-direction: column;
-  width: clamp(10em, 100vw - 2em, 100%);
 }
 
-.tasks div > .task {
+.taskContainer > div {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.columnTasks .task {
   background-color: #1be7ff;
 }
 
-.inProgress div > .task {
+.columnDoing .task {
   background-color: #6eeb83;
 }
 
-.testing div > .task {
+.columnTesting .task {
   background-color: #e4ff1a;
 }
 
-.done div > .task {
+.columnDone .task {
   background-color: #ff5714;
 }
 
@@ -126,24 +152,23 @@ header div:nth-child(4) {
 /* 4. Task */
 .task {
   background-color: #1be7ff;
-  display: flex;
-  flex-wrap: wrap;
   margin-top: 0.5em;
   padding: 0.5em;
 }
+.task > div {
+  display: flex;
+}
 
-.task header {
+.task > div header {
   border: none;
   display: block;
   font-size: var(--fnt-size-sm);
-  margin: 0 auto 0 0;
-  max-width: 25ch;
+  margin-right: auto;
 }
 
 .task img {
   box-shadow: inset;
   cursor: pointer;
-  flex-basis: 0;
   transition: box-shadow 0.5s;
 }
 
@@ -161,7 +186,6 @@ header div:nth-child(4) {
 }
 
 .task p {
-  flex-basis: 100%;
   font-size: var(--fnt-size-sm);
   margin-right: auto;
   margin-top: 1em;

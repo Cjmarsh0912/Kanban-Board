@@ -1,17 +1,15 @@
-export default function Header() {
+type ColumnName = {
+  columnName: string;
+  columnClassName: string;
+};
+
+export default function Header(props: ColumnName) {
+  const columnName = props.columnName;
+  const columnClassName = props.columnClassName;
   return (
     <header>
-      <div>
-        <h2>Tasks</h2>
-      </div>
-      <div>
-        <h2>Doing</h2>
-      </div>
-      <div>
-        <h2>Testing</h2>
-      </div>
-      <div>
-        <h2>Done</h2>
+      <div className={columnClassName}>
+        <h2>{columnName}</h2>
       </div>
     </header>
   );
