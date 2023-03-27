@@ -45,7 +45,7 @@ button:hover {
 }
 
 :root {
-  --fnt-size-lrg: clamp(0.7rem, 3.5vw - 1rem, 1.6rem);
+  --fnt-size-lrg: clamp(1rem, 3.5vw - 1rem, 1.6rem);
   --fnt-size-sm: clamp(0.7rem, 3.5vw, 1.1rem);
 }
 
@@ -60,7 +60,7 @@ button:hover {
   .board {
     flex-wrap: wrap;
     border-top: none !important;
-    width: 50%;
+    width: 30rem;
   }
 
   header {
@@ -74,6 +74,12 @@ button:hover {
 
   .btnContainer {
     justify-content: center;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .board {
+    width: 100%;
   }
 }
 
